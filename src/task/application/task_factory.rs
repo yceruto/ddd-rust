@@ -1,5 +1,5 @@
 use std::sync::Arc;
-use uuid::Uuid;
+use rocket::serde::uuid::Uuid;
 use crate::task::domain::model::task::Task;
 use crate::task::domain::repository::task_repository::TaskRepository;
 
@@ -12,8 +12,8 @@ impl TaskFactory {
         Self { repository }
     }
 
-    pub fn create(&self, title: String) -> Task {
-        let task = Task::new(Uuid::new_v4(), title);
+    pub fn create(&self, id: Uuid, title: String) -> Task {
+        let task = Task::new(id, title);
 
         self.repository.add(task.clone());
 

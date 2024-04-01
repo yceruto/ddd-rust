@@ -1,4 +1,5 @@
 use std::sync::Mutex;
+use rocket::serde::uuid::Uuid;
 use crate::task::domain::model::task::Task;
 use crate::task::domain::repository::task_repository::TaskRepository;
 
@@ -15,6 +16,12 @@ impl InMemoryTaskRepository {
 impl TaskRepository for InMemoryTaskRepository {
     fn add(&self, task: Task) {
         self.tasks.lock().unwrap().push(task);
+    }
+
+    fn of_id(&self, id: Uuid) -> Option<Task> {
+        self.tasks.lock().unwrap().iter()
+            .find(|task| task.id == id)
+            .cloned()
     }
 
     fn all(&self) -> Vec<Task> {

@@ -7,6 +7,7 @@ use crate::task::infrastructure::persistence::in_memory::in_memory_task_reposito
 
 pub mod post_task;
 pub mod get_tasks;
+pub mod get_task;
 
 pub fn stage() -> AdHoc {
     AdHoc::on_ignite("JSON", |rocket| async {
@@ -20,6 +21,7 @@ pub fn stage() -> AdHoc {
             .mount("/", routes![
                 post_task::handle,
                 get_tasks::handle,
+                get_task::handle,
             ])
     })
 }

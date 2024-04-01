@@ -1,5 +1,5 @@
 use rocket::serde::Serialize;
-use uuid::Uuid;
+use rocket::serde::uuid::Uuid;
 use crate::task::domain::model::task::Task;
 
 #[derive(Serialize)]

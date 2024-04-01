@@ -1,13 +1,15 @@
 #[macro_use] extern crate rocket;
 
+use rocket::http::Status;
+use rocket::Request;
 use rocket::serde::json::{Value, json};
 
 pub mod task;
 
-#[catch(404)]
-fn not_found() -> Value {
+#[catch(default)]
+fn error_catcher(status: Status, _req: &Request) -> Value {
     json!({
-        "status": 404,
+        "status": status.code,
         "title": "Not found",
         "detail": "Resource was not found."
     })
@@ -17,5 +19,5 @@ fn not_found() -> Value {
 fn rocket() -> _ {
     rocket::build()
         .attach(task::presentation::controller::stage())
-        .register("/", catchers![not_found])
+        .register("/", catchers![error_catcher])
 }

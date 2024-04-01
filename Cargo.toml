@@ -7,8 +7,5 @@ edition = "2021"
 
 [dependencies]
 chrono = "0.4.37"
-rocket = { version = "0.5.0", features = ["json"] }
-
-[dependencies.uuid]
-version = "~1"
-features = ["serde", "v4"]
+rocket = { version = "0.5.0", features = ["json", "uuid"] }
+uuid = { version = "~1", features = ["serde", "v4"] }

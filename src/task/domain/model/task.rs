@@ -1,5 +1,5 @@
 use chrono::{DateTime, Utc};
-use uuid::Uuid;
+use rocket::serde::uuid::Uuid;
 
 #[derive(Clone)]
 pub struct Task {
