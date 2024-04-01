@@ -18,6 +18,10 @@ impl TaskRepository for InMemoryTaskRepository {
         self.tasks.lock().unwrap().push(task);
     }
 
+    fn remove(&self, task: Task) {
+        self.tasks.lock().unwrap().retain(|t| t.id != task.id);
+    }
+
     fn of_id(&self, id: Uuid) -> Option<Task> {
         self.tasks.lock().unwrap().iter()
             .find(|task| task.id == id)
