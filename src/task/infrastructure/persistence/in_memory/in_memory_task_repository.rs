@@ -22,6 +22,13 @@ impl TaskRepository for InMemoryTaskRepository {
         self.tasks.lock().unwrap().retain(|t| t.id != task.id);
     }
 
+    fn update(&self, task: Task) {
+        let mut tasks = self.tasks.lock().unwrap();
+        if let Some(index) = tasks.iter().position(|t| t.id == task.id) {
+            tasks[index] = task;
+        }
+    }
+
     fn of_id(&self, id: Uuid) -> Option<Task> {
         self.tasks.lock().unwrap().iter()
             .find(|task| task.id == id)

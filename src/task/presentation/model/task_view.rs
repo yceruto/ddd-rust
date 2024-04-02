@@ -9,6 +9,7 @@ pub struct TaskView {
     title: String,
     completed: bool,
     created_at: String,
+    updated_at: String,
 }
 
 impl TaskView {
@@ -22,6 +23,7 @@ impl TaskView {
             title: task.title,
             completed: task.completed,
             created_at: task.created_at.to_rfc3339(),
+            updated_at: task.updated_at.map(|date| date.to_rfc3339()).unwrap_or_default(),
         }
     }
 }

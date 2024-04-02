@@ -7,6 +7,7 @@ pub struct Task {
     pub title: String,
     pub completed: bool,
     pub created_at: DateTime<Utc>,
+    pub updated_at: Option<DateTime<Utc>>,
 }
 
 impl Task {
@@ -16,6 +17,17 @@ impl Task {
             title,
             completed: false,
             created_at: Utc::now(),
+            updated_at: None,
+        }
+    }
+
+    pub fn update(&self, title: String, completed: bool) -> Self {
+        Self {
+            id: self.id,
+            title,
+            completed,
+            created_at: self.created_at,
+            updated_at: Some(Utc::now()),
         }
     }
 }

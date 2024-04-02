@@ -11,9 +11,11 @@ use crate::task::presentation::model::post_task_view::PostTaskView;
 pub async fn handle(body: Json<PostTaskBody>, task_factory: &State<TaskFactory>) -> Created<Json<PostTaskView>> {
     let task = task_factory.create(
         body.id.unwrap_or(Uuid::new_v4()),
-        body.title.clone(),
+        body.0.title,
     );
 
-    Created::new(uri!(_, get_task::handle(task.id)).to_string())
+    let location = uri!(_, get_task::handle(task.id)).to_string();
+
+    Created::new(location)
         .body(Json(PostTaskView::from(task)))
 }
